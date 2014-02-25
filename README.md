@@ -1,4 +1,4 @@
 presentations
 =============
 
-Sopra GIS Presentations
+Presentations
