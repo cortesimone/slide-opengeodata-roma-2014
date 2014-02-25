@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+	Reveal.js slidedeck - Hakim El Hattab
+	lab.hakim.se/reveal-js/  
+-->
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>OSM Data</title>
+
+		<meta name="description" content="OSM">
+		<meta name="author" content="Simone Cortesi & Maurizio Napolitano">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>OSM per sviluppatori</h1>
+					<h3>o, come ho smesso di pensare ai layer e ho iniziato ad amare i database</h3>
+					<p>Simone Cortesi</p>
+					<p><a href="twitter.com/simonecortesi">@simonecortesi</a> - simone@cortesi.com</p>
+				</section>
+
+
+				<section data-transition="linear" data-background="#4d7e65" data-background-transition="slide">
+					<h2>Why?</h2>
+					<br />
+					<h2 class="fragment">It's <strong>difficult</strong></h2>
+				</section>
+
+				<!--  Existing Solution  -->
+				<section data-transition="linear" data-background="#8c4738" data-background-transition="slide">
+					<h2>Existing Solutions</h2>
+					<ul>
+						<li>Linux, Virtual Machines</li>
+						<li>Osm2postgresql</li>
+						<li>OpenCageData</li>
+						<li>Geofabrik, Osm2Shp</li>
+						<li>HOT Data Store, <a href="http://wiki.openstreetmap.org/wiki/Humanitarian_OSM_Team/HOT_Package">HOT Package</a> (<a href="https://docs.google.com/document/d/1nZajHkX86_XSrkY32N5RRlyETRhrVhkcOkG4waxNw_M/edit?pli=1">doc</a>)
+						</li>
+						<li>Osm2pgsql, Osmosis</li>
+					</ul>
+
+				</section>
+
+				<!--  Solution
+				  Geofabrik -> osm2pgsql -> postgis -> qgis -->
+				<section data-transition="linear" data-background="#007777" data-background-transition="slide">
+					<h2>Solution</h2>
+					<img src="images/geofabrik-downloads.png" /><br />
+					<img src="images/osm-logo.png" /><br />
+					<img src="images/postgis-logo.png" />
+					<img src="images/qgis-logo.png" />
+				</section>
+
+				<section data-transition="linear"  data-background-transition="slide">
+					<h2>Process</h2>
+					<ol>
+						<li>Download Components
+							<ul>
+								<li class="fragment">Postgres &amp; PostGIS<br />Enterprise DB Stack Builder</li>
+								<li class="fragment">Osm2pgsql <small>&amp; style file</small></li>
+								<li class="fragment">OSM Data</li>
+								<li class="fragment">QGIS</li>
+							</ul>
+						</li>
+						<li class="fragment">Create Postgres User Role &amp; DB <br />(Using postgis template)<br /><pre><code data-trim contenteditable>CREATE ROLE osm LOGIN ENCRYPTED PASSWORD
+'md5a6d3a895f1b5e97a65512a4a5d4878af'
+  SUPERUSER CREATEDB
+   VALID UNTIL 'infinity';
+
+CREATE DATABASE osm
+  WITH ENCODING='UTF8'
+       TEMPLATE=template_postgis_20
+       CONNECTION LIMIT=-1;
+</code></pre></li>
+						<li class="fragment">Add hstore to DB<br /><pre><code data-trim contenteditable>CREATE EXTENSION HSTORE;
+</code></pre></li>
+					</ol>
+				</section>	
+
+				<section data-transition="linear" data-background="#4d7e65"data-background-transition="slide">
+					<h2>Process</h2>
+					<ol start="9">
+						<li>Make a viral map?<br />
+						<li>Use OSM in exciting and unexpected ways!!</li>
+					</ol>
+				</section>				
+
+				<!--  Understand the data
+					Get used to features existing as points, polygons and relations
+					Investigate incorrect tagging
+					Look at Map Features and TagInfo pages to KNOW what is in the DB	
+				-->
+				<section data-transition="linear" data-background-transition="slide">
+					<h2>Understand the data</h2>
+					<ul>
+						<li>POIs as Polygons</li>
+						<li>Tagging</li>
+						<li><a href="http://wiki.openstreetmap.org/wiki/Map_Features">Map Features</a>, <a href="http://taginfo.openstreetmap.org/">Taginfo</a>
+					</ul>
+				</section>
+
+				<!--  Results of this investigation:
+					1) You'll create some custom osm data layers
+					2) You'll gain a deeper understanding of the data
+					3) You'll understand what the data coverage situation is in your local area
+					    you might use this to improve your local map
+				-->
+				<section data-transition="linear" data-background="#8c4738"data-background-transition="slide">
+					<h2>Results</h2>
+					<ul>
+						<li>Some custom osm data layers</li>
+						<li>Deeper understanding of the data</li>
+						<li>Understanding of what needs work in your area</a>
+					</ul>
+				</section>	
+
+				<!--  Gotchas
+					1) Make sure you add Java to the PATH variable
+					2) Run everything from the same folder - it's easiest
+					3) Make sure you get your data in the right projection
+					4) Download the osm2psql style file
+					5) KNOW THE DATA
+				-->
+				<section data-transition="linear" data-background-transition="slide">
+					<h2>Watch out!</h2>
+					<ul>
+						<li>Java</li>
+						<li>Folders</li>
+						<li>Projections</li>
+						<li>osm2pgsql style file</li>
+						<li>DATA !!!</li>
+					</ul>
+				</section>	
+
+				<!--  Help
+					Help.osm is your best resource
+					or tweet osmers
+				-->
+				<section data-transition="linear" data-background-transition="slide">
+					<h2>Help</h2>
+					<ul>
+						<li>help.openstreetmap.org</li>
+						<li>tweet me</li>
+					</ul>
+				</section>		
+
+				<!--  Changes coming up
+				  there will be more services and processes for getting the data out
+				  watch what people do
+				  maybe create a common store of sql files for specific layers in osm
+				-->
+				<section data-transition="linear" data-background-transition="slide">
+					<h2>Watch this space</h2>
+					<ul>
+						<li>Keep an eye on the community</li>
+						<li>User-driven data request UIs</li>
+						<li>Common sql files?</li>
+					</ul>
+				</section>							
+
+				<!--  THE END  -->
+				<section>
+					<h1>THE END</h1>
+					<h3>Simone Cortesi</h3>
+					<p><a href="twitter.com/simonecortesi">@simonecortesi</a> - simone@cortesi.com</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
