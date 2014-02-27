@@ -186,8 +186,120 @@ CREATE DATABASE osm
 						<li>Common sql files?</li>
 					</ul>
 				</section>							
+				<!--  napo
+				-->
+				<section data-transition="zoom" data-background-transition="slide">
+					<h2>Services</h2>
+					<img src="images/routing.png"/>
+					geocoding - routing - public transport - quality assurance
+				</section>
+				<section data-transition="linear" data-background="#007777" data-background-transition="slide">
+					<h2>Geocoding</h2>
+					<h3>Search engine services</h3>
+					<ul>
+					<li class="fragment"><a href="http://nominatim.openstreetmap.org">Nominatim</a> (official with <a href="http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy">fair use policy</a> ) by <a href="http://developer.mapquest.com/web/products/open/nominatim">Mapquest</a> (data under ODbL)</li>
+					<li class="fragment"><a href="http://cloudmade.com/products/geocoding">Cloudmade</a> - with API commercial support (15$ per 100,000 transactions)</li> 
+					<li class="fragment"><a href="http://www.gisgraphy.com/premium/index.htm">GISGraphy</a> - with <a href="http://www.gisgraphy.com/premium/index.htm#sla">API commercial support</a></li> 
+					</ul>
+					<br/><br/>
+					<h3>Search engine open source software</h3>
+					<ul>
+					<li class="fragment"><a href="http://wiki.openstreetmap.org/wiki/Nominatim">Nominatim</a> php+postgresql</li>
+					<li class="fragment"><a href="http://www.gisgraphy.com/download/index.htm">GISGraphy</a> (LGPL) java+postgresql offers API for Android like Google</li>
+					<li class="fragment"><a href="http://photon.komoot.de/">Photon</a> (Apache License 2.0) java+postgresql+solr used in <a href="http://www.komoot.de">komoot</a></li>
+					</ul>
+				</section>
+				<section data-transition="linear" data-background-transition="slide">
+					<h2>Komoot <span style="font-size:small">(top)</span></h2>
+					<img src="images/komoot.png">
+				</section>
+				<section data-transition="linear" data-background-transition="slide">
+					<h2>Komoot <span style="font-size:small">(bottom)</span></h2>
+					<img src="images/komootbottom.png">
+				</section>
+				<section data-transition="linear" data-background="#007777" data-background-transition="slide">
+					<h2>Routing</h2>
+					<p style="text-align: left">
+					There are many offline, embedded and web-based routing services using OpenStreetMap data<br/>
+					<span class="fragment">
+					Please visit: <a href="http://wiki.openstreetmap.org/wiki/Routing">http://wiki.openstreetmap.org/wiki/Routing</a></span></p>			
+					<p  style="text-align: left">
+					<ul class="fragment">
+						<li><a href="http://pgrouting.org/">pg_routing</a>: extension for postgis with osm data support GPL,C++</li>
+						<li><a href="http://project-osrm.org/">OSRM</a> C++,BSD, research oriented   </li>
+						<li><a href="http://graphhopper.com/">Grasshoper</a> Java, Apache, Scales from big server to mobile device, works on Raspberry Pi</li>
+						<li><a href="http://project-osrm.org/">OSRM</a> C++,BSD, research oriented   </li>
+						<li><a href="http://www.gaia-gis.it/gaia-sins/">Spatialite</a> VirtualNetwork C, GPL/LGPL/MPL, portable</li>
+					</ul>
 
-				<!--  THE END  -->
+					<p class="fragment">
+					... and other services on cloud by Cloudmade, MapQuest, Skobbler...
+					</p>
+				</section>
+				<section data-transition="linear" data-background-transition="slide" data-background="#8c4738">
+					<h2>Public Transport</h2>
+					<p style="text-align: left">
+					<a href="http://opentripplanner.org">OpenTripPlanner</a> provides a range of passenger information and transportation network analysis features using our infrastructure for finding itineraries combining transit, pedestrian, bike, and car segments.<br/>network from osm, tpl from gtfs sources, lgpl, java
+					</p>
+					<img src="images/otp_nyc_demo_screenshot_crop.png">
+				</section>
+
+				<section data-transition="linear"  data-background-transition="slide">
+				<h2>quality assurance</h2>
+				... again a lot of tools <a href="http://wiki.openstreetmap.org/wiki/Quality_Assurance">http://wiki.openstreetmap.org/wiki/Quality_Assurance</a>
+				<p class="fragment">
+				We suggest to look and collaborate with <a href="http://osmose.openstreetmap.fr">OSMOSE</a><br/>
+				<img src="images/osmose.png"/>
+				</p>
+				</section>
+
+				<section  data-transition="zoom" data-background="#007777" data-background-transition="slide">
+				<h2>OSMOSE</h2>
+				<img src="images/osmose2.png"/>
+				</section>
+
+				<section data-transition="linear" data-background-transition="slide">
+				<h2>OpenStreetMap are users</h2>
+				<img src="images/neis_people.png"/>
+				<br/>
+				<a href="http://resultmaps.neis-one.org/oooc?zoom=13&lat=43.77537&lon=11.27253&layers=00BTFFFFFT">Overview of OpenStreetMap Contributors</a>
+				</section>
+
+				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
+				<h2>Who in Rome?</h2>
+				<img src="images/neis_rome_all.png"/>
+				<a href="http://resultmaps.neis-one.org/oooc?zoom=13&lat=43.77537&lon=11.27253&layers=00BTFFFFFT">Overview of OpenStreetMap Contributors</a>
+				</section>
+				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
+				<h2>For Example: davio</h2>
+				<img src="images/neis_rome_all.png"/>
+				<a href="http://resultmaps.neis-one.org/oooc?zoom=13&lat=43.77537&lon=11.27253&layers=00BTFFFFFT">Overview of OpenStreetMap Contributors</a>
+				</section>
+				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
+				<h2>The davio's world</h2>
+				<img src="images/davio_heatmap.png"/>
+				<a href="http://www.yosmhm.neis-one.org/?Davio">Your OSM Heat Map </a>
+				</section>
+				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
+				<h2>The davio's activity <span style="font-size:small">1/2</span></h2>
+				<img src="images/davio1_left.png"/><br/>
+				<a href="http://hdyc.neis-one.org/?Davio">How did you contribute to OpenStreetMap?</a>
+				</section>
+				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
+				<h2>The davio's activity <span style="font-size:small">2/2</span></h2>
+				<img src="images/davio1_right.png"/><br/>
+				<a href="http://hdyc.neis-one.org/?Davio">How did you contribute to OpenStreetMap?</a>
+				</section>
+				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
+				<h2>The davio's home</span></h2>
+				<img src="images/daviopage.png"/><br/>
+				<a href="http://www.openstreetmap.org/user/Davio">OpenStreetMap - Davio home</a>
+				</section>
+				<section data-transition="linear" data-background-transition="slide" data-background="#8c4738">
+					<h2>Don't forget: OpenStreetMap is made by people</h2>
+					<img src="images/sotm.jpg"/><br/>
+					<h2>LIKE YOU</h2>
+				</section>
 				<section>
 					<h1>THE END</h1>
 					<h3>Simone Cortesi</h3>
