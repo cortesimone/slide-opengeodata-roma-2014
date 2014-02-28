@@ -1,4 +1,5 @@
-# OSM Data on Windows
+# OSM for developers
+## or, how I stopped worrying about layers, and love the database
 
 A presentation for OpenGeoData by Simone Cortesi (@simonecortesi), and Maurizio Napolitano (@napo).
 Rome - 27th february 2014
