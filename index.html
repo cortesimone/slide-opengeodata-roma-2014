@@ -1,17 +1,15 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='en' xml:lang='en' xmlns="http://www.w3.org/1999/xhtml">
 
-<!-- 
-	Reveal.js slidedeck - Hakim El Hattab
-	lab.hakim.se/reveal-js/  
--->
+<!-- Reveal.js slidedeck - Hakim El Hattab
+	 lab.hakim.se/reveal-js/                 -->
 
 	<head>
 		<meta charset="utf-8">
 
-		<title>OSM Data</title>
+		<title>OSM for developers</title>
 
-		<meta name="description" content="OSM">
+		<meta name="description" content="OSM for developers">
 		<meta name="author" content="Simone Cortesi & Maurizio Napolitano">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -42,37 +40,52 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>OSM per sviluppatori</h1>
-					<h3>o, come ho smesso di pensare ai layer e ho iniziato ad amare i database</h3>
-					<p>Simone Cortesi</p>
-					<p><a href="twitter.com/simonecortesi">@simonecortesi</a> - simone@cortesi.com</p>
+					<h1>OSM for developers</h1>
+					<h3>or, how I stopped worrying about layers, and love the database</h3>
+					<p>Simone Cortesi <a href="http://twitter.com/simonecortesi">@simonecortesi</a></p>
+					<p>Maurizio Napolitano <a href="http://twitter.com/napo">@napo</a></p>
 				</section>
 
+				<section>
+					<iframe width="99%" height="600" src='https://www.mapbox.com/show-me-the-way/'></iframe>
+				<p>OpenStreetMap is a <a href="https://www.mapbox.com/show-me-the-way/">live</a> ecosystem</p>
+				</section>
 
-				<section data-transition="linear" data-background="#4d7e65" data-background-transition="slide">
-					<h2>Why?</h2>
-					<br />
-					<h2 class="fragment">It's <strong>difficult</strong></h2>
+				<!--  Solution
+				  Geofabrik -> osm2pgsql -> postgis -> qgis -->
+				<section>
+					<h2>Open Database License (ODbL)</h2>
+					<img src="images/odbl.png" />
+				</section>
+
+				<section>
+					<h2>It's <strong>difficult</strong></h2>
+				</section>
+
+				<section>
+					<h2>Understanding the data</h2>
+					<ul>
+						<li>there is no layer(s)</li>
+						<li>Tagging</li>
+						<li><a href="http://wiki.openstreetmap.org/wiki/Map_Features">Map Features</a>, <a href="http://taginfo.openstreetmap.org/">Taginfo</a>
+					</ul>
 				</section>
 
 				<!--  Existing Solution  -->
-				<section data-transition="linear" data-background="#8c4738" data-background-transition="slide">
+				<section>
 					<h2>Existing Solutions</h2>
 					<ul>
 						<li>Linux, Virtual Machines</li>
 						<li>Osm2postgresql</li>
 						<li>OpenCageData</li>
 						<li>Geofabrik, Osm2Shp</li>
-						<li>HOT Data Store, <a href="http://wiki.openstreetmap.org/wiki/Humanitarian_OSM_Team/HOT_Package">HOT Package</a> (<a href="https://docs.google.com/document/d/1nZajHkX86_XSrkY32N5RRlyETRhrVhkcOkG4waxNw_M/edit?pli=1">doc</a>)
-						</li>
 						<li>Osm2pgsql, Osmosis</li>
 					</ul>
-
 				</section>
 
 				<!--  Solution
 				  Geofabrik -> osm2pgsql -> postgis -> qgis -->
-				<section data-transition="linear" data-background="#007777" data-background-transition="slide">
+				<section>
 					<h2>Solution</h2>
 					<img src="images/geofabrik-downloads.png" /><br />
 					<img src="images/osm-logo.png" /><br />
@@ -80,120 +93,185 @@
 					<img src="images/qgis-logo.png" />
 				</section>
 
-				<section data-transition="linear"  data-background-transition="slide">
-					<h2>Process</h2>
-					<ol>
-						<li>Download Components
-							<ul>
-								<li class="fragment">Postgres &amp; PostGIS<br />Enterprise DB Stack Builder</li>
-								<li class="fragment">Osm2pgsql <small>&amp; style file</small></li>
-								<li class="fragment">OSM Data</li>
-								<li class="fragment">QGIS</li>
-							</ul>
-						</li>
-						<li class="fragment">Create Postgres User Role &amp; DB <br />(Using postgis template)<br /><pre><code data-trim contenteditable>CREATE ROLE osm LOGIN ENCRYPTED PASSWORD
-'md5a6d3a895f1b5e97a65512a4a5d4878af'
-  SUPERUSER CREATEDB
-   VALID UNTIL 'infinity';
-
-CREATE DATABASE osm
-  WITH ENCODING='UTF8'
-       TEMPLATE=template_postgis_20
-       CONNECTION LIMIT=-1;
-</code></pre></li>
-						<li class="fragment">Add hstore to DB<br /><pre><code data-trim contenteditable>CREATE EXTENSION HSTORE;
-</code></pre></li>
-					</ol>
-				</section>	
-
-				<section data-transition="linear" data-background="#4d7e65"data-background-transition="slide">
-					<h2>Process</h2>
-					<ol start="9">
-						<li>Make a viral map?<br />
-						<li>Use OSM in exciting and unexpected ways!!</li>
-					</ol>
-				</section>				
-
-				<!--  Understand the data
-					Get used to features existing as points, polygons and relations
-					Investigate incorrect tagging
-					Look at Map Features and TagInfo pages to KNOW what is in the DB	
-				-->
-				<section data-transition="linear" data-background-transition="slide">
-					<h2>Understand the data</h2>
+				<!--  planet  -->
+				<section>
+					<h2>OSM “planet” files</h2>
 					<ul>
-						<li>POIs as Polygons</li>
-						<li>Tagging</li>
-						<li><a href="http://wiki.openstreetmap.org/wiki/Map_Features">Map Features</a>, <a href="http://taginfo.openstreetmap.org/">Taginfo</a>
+						<li>Requesting large amounts of data from API can place undue load on the OSM server</li>
+						<li>API is really designed for adding and editing data, not retrieving</li>
+						<li>So OSM also makes its data available as downloadable “planet” files in OSM XML format, containing OSM data for the entire planet</li>
+						<li>Whole planet too large for most to use directly, so  country or regional extracts available (eg. <a href="http://download.geofabrik.de">Geofabrik</a>)</li>
 					</ul>
 				</section>
 
-				<!--  Results of this investigation:
-					1) You'll create some custom osm data layers
-					2) You'll gain a deeper understanding of the data
-					3) You'll understand what the data coverage situation is in your local area
-					    you might use this to improve your local map
-				-->
-				<section data-transition="linear" data-background="#8c4738"data-background-transition="slide">
-					<h2>Results</h2>
-					<ul>
-						<li>Some custom osm data layers</li>
-						<li>Deeper understanding of the data</li>
-						<li>Understanding of what needs work in your area</a>
-					</ul>
-				</section>	
 
-				<!--  Gotchas
-					1) Make sure you add Java to the PATH variable
-					2) Run everything from the same folder - it's easiest
-					3) Make sure you get your data in the right projection
-					4) Download the osm2psql style file
-					5) KNOW THE DATA
-				-->
-				<section data-transition="linear" data-background-transition="slide">
-					<h2>Watch out!</h2>
+				<!--  planet  -->
+				<section>
+					<h2>OSM planet is huge</h2>
 					<ul>
-						<li>Java</li>
-						<li>Folders</li>
-						<li>Projections</li>
-						<li>osm2pgsql style file</li>
-						<li>DATA !!!</li>
+						<li>The complete OSM Data</li>
+						<li class="fragment">Latest Weekly Planet File: 33 GB</li>
+						<li class="fragment">Latest Weekly Changesets: 782 MB</li>
 					</ul>
-				</section>	
+				</section>
+
+				<!--  map rendering  -->
+				<section>
+					<h3>Rendering the map on your PC with Tilemill</h3>
+					<img src="images/pavia.png" />
+
+				</section>
+
+				<!--  map rendering  -->
+				<section id="pavia-tilemill">
+					<h2>Tilemill</h2>
+					<ul>
+						<li>Pavia</li>
+					<li>showing building age</li>
+					<li>colorcoding based on native OSM data</li>
+					<li><pre><code>start_date=*</code></pre></li>
+					<li class="fragment">2 hour job</li>
+					<li class="fragment">tilemill is free and opensource software</li>
+				</ul>
+				</section>
+
+				<!--  web viz  -->
+				<section>
+					<h3>web visualization</h3>
+				<ul>
+					<li>Openlayers</li>
+					<li>Leaflet.JS</li>
+					<li>Modestmaps</li>
+					<li>d3.js</li>
+					<li>mapstraction</li>
+					</ul>
+				</section>
+
+
+				<!--  leaflet js  -->
+				<section>
+					<h3>Leaflet.JS</h3>
+					<img src="images/leaflet.png" />
+				</section>
+
+
+				<!--  amenity drinking water -->
+				<section>
+					<h2>overpass-api</h2>
+					<img src="images/drinking.png" />
+				</section>
+
+
+				<section>
+					<h2>overpass-api</h2>
+					<pre><code data-trim contenteditable>
+&lt;query type="node">
+	&lt;has-kv k="amenity" v="drinking_water"/>
+	&lt;bbox-query {{bbox}}/>&lt;!--this is auto-completed with the
+	current map view coordinates.-->
+&lt;/query>	
+				</code></pre>
+				</section>
+
+
+				<section>
+					<h2>GIThub - integration</h2>
+					<img src="images/drinking_rome_githubio.png" />
+					<p><a href="http://geojson.io/#id=gist:anonymous/9246035&map=14/41.8907/12.4900">geojson.io</a></p>
+				</section>
+
+				<!--  istat -->
+				<section id="istat">
+					<h2>overpass-api</h2>
+					<h3>realtime styling</h3>
+					<img src="images/overpass-style.png" />
+					<p><a href="http://overpass-turbo.eu/s/k">overpass turbo query</a></p>
+				</section>
+
+				<!--  istat -->
+				<section>
+					<h3>ISTAT</h3>
+<pre><code><osm-script output="json">
+  <query type="area">
+    <has-kv k="name" v="Italia"/>
+  </query>
+  <query type="node">
+    <has-kv k="place"/>    <has-kv k="population"/>    <has-kv k="place" v="city"/>
+    <area-query/>
+  </query>
+  <print mode="body" order="quadtile"/>
+</osm-script>
+{{style:
+node {
+  color:blue;
+  opacity:0.2;
+  width:3;
+  fill-color:blue;
+  fill-opacity:0.4;
+  symbol-shape: circle;
+  symbol-size: eval('max(3,min(200,0.02*Math.sqrt(tag("population"))))');
+}
+}}</code></pre></section>
+
+
+
+				<section>
+					<h2>Wikimedia Italia</h2>
+					<img src="images/wikimedia-logo.jpg" />
+				</section>
+
+				<section>
+					<h2>Editing the data</h2>
+					<ul>
+						<li><a href="http://josm.openstreetmap.de">JOSM</a></li>
+							<ul><li>Standalone editor, written in Java</li>
+							<li>Powerful and flexible</li>
+							<li>Communicates with API over HTTP</li></ul>
+						<li><a href="http://wiki.openstreetmap.org/wiki/Potlatch_2">Potlatch</a></li>
+							<ul><li>Online Flash Editor</li>
+							<li>Easy to use</li></ul>
+						<li><a href="http://ideditor.com/">iD</a></li>
+							<ul><li>HTML5/JavaScript/d3.js, in early development</li></ul>
+					</ul>
+				</section>
 
 				<!--  Help
 					Help.osm is your best resource
 					or tweet osmers
 				-->
-				<section data-transition="linear" data-background-transition="slide">
+				<section>
 					<h2>Help</h2>
 					<ul>
 						<li>help.openstreetmap.org</li>
-						<li>tweet me</li>
+						<li>very active and helpfull mailinglst</li>
+						<li>Twitter <a href="http://twitter.com/openstreetmapit">@OpenstreetmapIT</a></li>
 					</ul>
 				</section>		
 
-				<!--  Changes coming up
-				  there will be more services and processes for getting the data out
-				  watch what people do
-				  maybe create a common store of sql files for specific layers in osm
-				-->
-				<section data-transition="linear" data-background-transition="slide">
-					<h2>Watch this space</h2>
-					<ul>
-						<li>Keep an eye on the community</li>
-						<li>User-driven data request UIs</li>
-						<li>Common sql files?</li>
-					</ul>
-				</section>							
-				<!--  napo
-				-->
-				<section data-transition="zoom" data-background-transition="slide">
+				<section>
+					<h2>products</h2>
+					<img src="images/mat.jpg" />
+				</section>
+
+				<section>
+					<h2>products</h2>
+					<img src="images/dressmap.jpg" />
+				</section>
+
+				<section>
+					<h2>product/service</h2>
+					<img src="images/field_paper.png" />
+				</section>
+
+
+				<!--  napo				-->
+				<section>
 					<h2>Services</h2>
 					<img src="images/routing.png"/>
 					geocoding - routing - public transport - quality assurance
 				</section>
-				<section data-transition="linear" data-background="#007777" data-background-transition="slide">
+				
+				<section>
 					<h2>Geocoding</h2>
 					<h3>Search engine services</h3>
 					<ul>
@@ -209,15 +287,18 @@ CREATE DATABASE osm
 					<li class="fragment"><a href="http://photon.komoot.de/">Photon</a> (Apache License 2.0) java+postgresql+solr used in <a href="http://www.komoot.de">komoot</a></li>
 					</ul>
 				</section>
-				<section data-transition="linear" data-background-transition="slide">
+				
+				<section>
 					<h2>Komoot <span style="font-size:small">(top)</span></h2>
 					<img src="images/komoot.png">
 				</section>
-				<section data-transition="linear" data-background-transition="slide">
+				
+				<section>
 					<h2>Komoot <span style="font-size:small">(bottom)</span></h2>
 					<img src="images/komootbottom.png">
 				</section>
-				<section data-transition="linear" data-background="#007777" data-background-transition="slide">
+				
+				<section>
 					<h2>Routing</h2>
 					<p style="text-align: left">
 					There are many offline, embedded and web-based routing services using OpenStreetMap data<br/>
@@ -233,10 +314,11 @@ CREATE DATABASE osm
 					</ul>
 
 					<p class="fragment">
-					... and other services on cloud by Cloudmade, MapQuest, Skobbler...
+					... and other services in the cloud made available by Cloudmade, MapQuest, Skobbler...
 					</p>
 				</section>
-				<section data-transition="linear" data-background-transition="slide" data-background="#8c4738">
+				
+				<section>
 					<h2>Public Transport</h2>
 					<p style="text-align: left">
 					<a href="http://opentripplanner.org">OpenTripPlanner</a> provides a range of passenger information and transportation network analysis features using our infrastructure for finding itineraries combining transit, pedestrian, bike, and car segments.<br/>network from osm, tpl from gtfs sources, lgpl, java
@@ -244,7 +326,7 @@ CREATE DATABASE osm
 					<img src="images/otp_nyc_demo_screenshot_crop.png">
 				</section>
 
-				<section data-transition="linear"  data-background-transition="slide">
+				<section>
 				<h2>quality assurance</h2>
 				... again a lot of tools <a href="http://wiki.openstreetmap.org/wiki/Quality_Assurance">http://wiki.openstreetmap.org/wiki/Quality_Assurance</a>
 				<p class="fragment">
@@ -253,57 +335,78 @@ CREATE DATABASE osm
 				</p>
 				</section>
 
-				<section  data-transition="zoom" data-background="#007777" data-background-transition="slide">
+				<section>
 				<h2>OSMOSE</h2>
 				<img src="images/osmose2.png"/>
 				</section>
 
-				<section data-transition="linear" data-background-transition="slide">
+				<section>
 				<h2>OpenStreetMap are users</h2>
 				<img src="images/neis_people.png"/>
 				<br/>
 				<a href="http://resultmaps.neis-one.org/oooc?zoom=13&lat=43.77537&lon=11.27253&layers=00BTFFFFFT">Overview of OpenStreetMap Contributors</a>
 				</section>
 
-				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
-				<h2>Who in Rome?</h2>
+				<section>
+				<h2>Who is in Rome?</h2>
 				<img src="images/neis_rome_all.png"/>
 				<a href="http://resultmaps.neis-one.org/oooc?zoom=13&lat=43.77537&lon=11.27253&layers=00BTFFFFFT">Overview of OpenStreetMap Contributors</a>
 				</section>
-				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
+				
+				<section>
 				<h2>For Example: davio</h2>
 				<img src="images/neis_rome_all.png"/>
 				<a href="http://resultmaps.neis-one.org/oooc?zoom=13&lat=43.77537&lon=11.27253&layers=00BTFFFFFT">Overview of OpenStreetMap Contributors</a>
 				</section>
-				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
-				<h2>The davio's world</h2>
+				
+				<section>
+				<h2>Davio's world</h2>
 				<img src="images/davio_heatmap.png"/>
 				<a href="http://www.yosmhm.neis-one.org/?Davio">Your OSM Heat Map </a>
 				</section>
-				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
-				<h2>The davio's activity <span style="font-size:small">1/2</span></h2>
+				
+				<section>
+				<h2>Davio's activity <span style="font-size:small">1/2</span></h2>
 				<img src="images/davio1_left.png"/><br/>
 				<a href="http://hdyc.neis-one.org/?Davio">How did you contribute to OpenStreetMap?</a>
 				</section>
-				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
-				<h2>The davio's activity <span style="font-size:small">2/2</span></h2>
+				
+				<section>
+				<h2>Davio's activity <span style="font-size:small">2/2</span></h2>
 				<img src="images/davio1_right.png"/><br/>
 				<a href="http://hdyc.neis-one.org/?Davio">How did you contribute to OpenStreetMap?</a>
 				</section>
-				<section  data-transition="linear" data-background="#007777" data-background-transition="slide">
-				<h2>The davio's home</span></h2>
+				
+				<section>
+				<h2>Davio's home</span></h2>
 				<img src="images/daviopage.png"/><br/>
 				<a href="http://www.openstreetmap.org/user/Davio">OpenStreetMap - Davio home</a>
 				</section>
-				<section data-transition="linear" data-background-transition="slide" data-background="#8c4738">
+				
+				<section>
 					<h2>Don't forget: OpenStreetMap is made by people</h2>
 					<img src="images/sotm.jpg"/><br/>
 					<h2>LIKE YOU</h2>
 				</section>
+				
 				<section>
-					<h1>THE END</h1>
-					<h3>Simone Cortesi</h3>
-					<p><a href="twitter.com/simonecortesi">@simonecortesi</a> - simone@cortesi.com</p>
+					<h2>City of New York City and OSM</h2>
+					<img src="images/ny_change_detection.png"/><br/>
+					<a href="https://www.mapbox.com/blog/nyc-and-openstreetmap-cooperating-through-open-data/">New York City and OpenStreetMap Collaborating Through Open Data</a>
+				</section>
+				
+				<section>
+					<h2>Milano</h2>
+					<img src="images/amat.png"/><br/>
+					<a href="http://www.amat-mi.it/">amat-mi.it</a>
+				</section>
+
+				<section>
+					<h1>THANKYOU</h1>
+					<p>Simone Cortesi <a href="http://twitter.com/simonecortesi">@simonecortesi</a></p>
+					<p>Maurizio Napolitano <a href="http://twitter.com/napo">@napo</a></p>
+					<p> </p>
+					<p style="font-size:small">Slides: CC-BY-SA</p>
 				</section>
 
 			</div>
